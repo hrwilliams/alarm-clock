@@ -112,3 +112,20 @@ gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
 gulp.task('bowerBuild', ['bower'], function(){
   browserSync.reload();
 });
+
+gulp.task('serve', function() {
+  browserSync.init({
+    server: {
+      baseDir: "./",
+      index: "index.html"
+    }
+  });
+
+  gulp.watch(['js/*.js'], ['jsBuild']);
+  gulp.watch(['bower.json'], ['bowerBuild']);
+  gulp.watch(['*.html'], ['htmlBuild']);
+});
+
+gulp.task('htmlBuild', function() {
+  browserSync.reload();
+});
